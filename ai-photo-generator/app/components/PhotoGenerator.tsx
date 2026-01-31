@@ -108,51 +108,60 @@ export default function PhotoGenerator({ templates }: PhotoGeneratorProps) {
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-6 space-y-12">
-            <div className="text-center space-y-4">
-                <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent pb-1">
+        <div className="max-w-[1600px] mx-auto p-2 h-[calc(100vh-20px)] flex flex-col">
+            <div className="text-center shrink-0 mb-2">
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
                     AI Photo Studio
                 </h1>
-                <p className="text-gray-500 max-w-2xl mx-auto text-lg">
-                    Upload your selfie, pick a style, and let AI transform you.
+                <p className="text-gray-500 text-sm">
+                    Upload selfie, pick style, generate.
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div className="space-y-8">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border space-y-6">
-                        <h2 className="text-xl font-semibold flex items-center gap-2">
-                            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 text-sm">1</span>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 flex-1 min-h-0">
+
+                {/* Column 1: Style Selection */}
+                <div className="flex flex-col h-full min-h-0">
+                    <div className="bg-white p-3 rounded-xl shadow-sm border flex flex-col h-full min-h-0">
+                        <h2 className="text-sm font-semibold flex items-center gap-2 shrink-0 mb-2">
+                            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 text-[10px]">1</span>
                             Select Style
                         </h2>
-                        <TemplateGallery
-                            templates={templates}
-                            selectedTemplate={selectedTemplate}
-                            onSelect={setSelectedTemplate}
-                        />
+                        <div className="flex-1 min-h-0 overflow-y-auto">
+                            <TemplateGallery
+                                templates={templates}
+                                selectedTemplate={selectedTemplate}
+                                onSelect={setSelectedTemplate}
+                            />
+                        </div>
                     </div>
+                </div>
 
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border space-y-6">
-                        <h2 className="text-xl font-semibold flex items-center gap-2">
-                            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 text-sm">2</span>
+                {/* Column 2: Upload & Settings */}
+                <div className="flex flex-col gap-3 h-full min-h-0">
+                    <div className="bg-white p-3 rounded-xl shadow-sm border shrink-0">
+                        <h2 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 text-[10px]">2</span>
                             Upload Selfie
                         </h2>
-                        <PhotoUpload
-                            selectedImage={selectedImage}
-                            onImageSelect={setSelectedImage}
-                        />
+                        <div className="h-[180px]">
+                            <PhotoUpload
+                                selectedImage={selectedImage}
+                                onImageSelect={setSelectedImage}
+                            />
+                        </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border space-y-6">
-                        <h2 className="text-xl font-semibold flex items-center gap-2">
-                            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 text-sm">3</span>
-                            Custom Prompts <span className="text-gray-400 text-sm font-normal ml-auto">(Optional)</span>
+                    <div className="bg-white p-3 rounded-xl shadow-sm border shrink-0">
+                        <h2 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 text-[10px]">3</span>
+                            Prompt <span className="text-gray-400 text-[10px] font-normal ml-auto">Optional</span>
                         </h2>
                         <textarea
                             value={prompt}
                             onChange={(e) => setPrompt(e.target.value)}
-                            placeholder="E.g. Make it look cinematic, add cybernetic enhancements..."
-                            className="w-full border-gray-200 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent min-h-[100px] resize-none"
+                            placeholder="E.g. Make it look cinematic..."
+                            className="w-full border-gray-200 rounded-lg p-2 text-xs focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-[60px] resize-none"
                         />
                     </div>
 
@@ -160,44 +169,55 @@ export default function PhotoGenerator({ templates }: PhotoGeneratorProps) {
                         onClick={handleGenerateWithBase64}
                         disabled={!selectedImage || !selectedTemplate || isGenerating}
                         className={cn(
-                            "w-full py-4 rounded-xl text-lg font-semibold flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-indigo-500/25",
+                            "w-full py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all shadow-md shrink-0",
                             !selectedImage || !selectedTemplate || isGenerating
                                 ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                : "bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-[1.02]"
+                                : "bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-[1.02] shadow-indigo-500/25"
                         )}
                     >
                         {isGenerating ? (
                             <>
-                                <Loader2 className="animate-spin w-6 h-6" />
-                                Generating Magic...
+                                <Loader2 className="animate-spin w-4 h-4" />
+                                Generating...
                             </>
+                        ) : !selectedTemplate ? (
+                            "Select a Style to Continue"
+                        ) : !selectedImage ? (
+                            "Upload a Selfie to Continue"
                         ) : (
                             <>
-                                <Wand2 className="w-6 h-6" />
+                                <Wand2 className="w-4 h-4" />
                                 Generate Photo
                             </>
                         )}
                     </button>
-                    {error && <div className="text-red-500 text-center font-medium bg-red-50 p-4 rounded-lg">{error}</div>}
-
+                    {error && <div className="text-red-500 text-center text-xs font-medium bg-red-50 p-2 rounded-lg">{error}</div>}
                 </div>
 
-                <div className="space-y-6">
-                    <div className="bg-white p-8 rounded-2xl shadow-sm border min-h-[600px] flex flex-col">
-                        <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                            <Sparkles className="w-5 h-5 text-amber-500" />
+                {/* Column 3: Result */}
+                <div className="flex flex-col h-full min-h-0">
+                    <div className="bg-white p-3 rounded-xl shadow-sm border h-full flex flex-col">
+                        <h2 className="text-sm font-semibold mb-2 flex items-center gap-2 shrink-0">
+                            <Sparkles className="w-4 h-4 text-amber-500" />
                             Result
                         </h2>
 
-                        <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-xl border border-dashed border-gray-200 overflow-hidden relative">
+                        <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-xl border border-dashed border-gray-200 overflow-hidden relative min-h-0 p-4">
                             {result ? (
-                                <img src={result} alt="Generated AI" className="max-w-full max-h-full object-contain shadow-2xl" />
-                            ) : (
-                                <div className="text-center text-gray-400 space-y-4">
-                                    <div className="w-20 h-20 bg-gray-100 rounded-full mx-auto flex items-center justify-center">
-                                        <Sparkles className="w-10 h-10 text-gray-300" />
+                                result.startsWith("http") || result.startsWith("data:") ? (
+                                    <img src={result} alt="Generated AI" className="max-w-full max-h-full object-contain shadow-lg" />
+                                ) : (
+                                    <div className="text-center p-4 bg-white rounded-lg shadow-sm border max-w-full overflow-auto">
+                                        <p className="text-sm font-semibold text-indigo-600 mb-2">AI Response:</p>
+                                        <p className="text-gray-700 whitespace-pre-wrap text-sm">{result}</p>
                                     </div>
-                                    <p>Your masterpiece will appear here</p>
+                                )
+                            ) : (
+                                <div className="text-center text-gray-400 space-y-2">
+                                    <div className="w-12 h-12 bg-gray-100 rounded-full mx-auto flex items-center justify-center">
+                                        <Sparkles className="w-6 h-6 text-gray-300" />
+                                    </div>
+                                    <p className="text-xs">Result will appear here</p>
                                 </div>
                             )}
                         </div>
