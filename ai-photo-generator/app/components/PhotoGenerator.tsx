@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { PhotoUpload } from "./PhotoUpload";
 import { TemplateGallery } from "./TemplateGallery";
-import { Loader2, Sparkles, Wand2 } from "lucide-react";
+import { Download, Loader2, Sparkles, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface PhotoGeneratorProps {
@@ -138,31 +138,18 @@ export default function PhotoGenerator({ templates }: PhotoGeneratorProps) {
                 </div>
 
                 {/* Column 2: Upload & Settings */}
-                <div className="flex flex-col gap-3 h-full min-h-0">
-                    <div className="bg-white p-3 rounded-xl shadow-sm border shrink-0">
+                <div className="flex flex-col gap-3 h-full min-h-0 overflow-hidden">
+                    <div className="bg-white p-3 rounded-xl shadow-sm border shrink-0 overflow-hidden">
                         <h2 className="text-sm font-semibold flex items-center gap-2 mb-2">
                             <span className="flex items-center justify-center w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 text-[10px]">2</span>
                             Upload Selfie
                         </h2>
-                        <div className="h-[180px]">
+                        <div className="h-[200px]">
                             <PhotoUpload
                                 selectedImage={selectedImage}
                                 onImageSelect={setSelectedImage}
                             />
                         </div>
-                    </div>
-
-                    <div className="bg-white p-3 rounded-xl shadow-sm border shrink-0">
-                        <h2 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 text-[10px]">3</span>
-                            Prompt <span className="text-gray-400 text-[10px] font-normal ml-auto">Optional</span>
-                        </h2>
-                        <textarea
-                            value={prompt}
-                            onChange={(e) => setPrompt(e.target.value)}
-                            placeholder="E.g. Make it look cinematic..."
-                            className="w-full border-gray-200 rounded-lg p-2 text-xs focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-[60px] resize-none"
-                        />
                     </div>
 
                     <button
@@ -191,7 +178,22 @@ export default function PhotoGenerator({ templates }: PhotoGeneratorProps) {
                             </>
                         )}
                     </button>
+
                     {error && <div className="text-red-500 text-center text-xs font-medium bg-red-50 p-2 rounded-lg">{error}</div>}
+
+                    {/* Optional Prompt - Below Generate Button */}
+                    <div className="shrink-0">
+                        <div className="flex items-center gap-2 mb-1.5">
+                            <span className="text-xs text-gray-700 font-medium">Custom Instructions</span>
+                            <span className="text-[10px] text-gray-600 bg-gray-200 px-1.5 py-0.5 rounded font-medium">Optional</span>
+                        </div>
+                        <textarea
+                            value={prompt}
+                            onChange={(e) => setPrompt(e.target.value)}
+                            placeholder="Add extra instructions... e.g. 'Make it look cinematic' or 'Add warm lighting'"
+                            className="w-full border border-gray-300 rounded-lg p-2 text-sm text-gray-800 focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-[50px] resize-none bg-white placeholder:text-gray-500"
+                        />
+                    </div>
                 </div>
 
                 {/* Column 3: Result */}
@@ -203,9 +205,50 @@ export default function PhotoGenerator({ templates }: PhotoGeneratorProps) {
                         </h2>
 
                         <div className="flex-1 flex items-center justify-center bg-gray-50 rounded-xl border border-dashed border-gray-200 overflow-hidden relative min-h-0 p-4">
-                            {result ? (
+                            {isGenerating ? (
+                                <div className="text-center space-y-4">
+                                    {/* Animated loading indicator */}
+                                    <div className="relative w-20 h-20 mx-auto">
+                                        {/* Outer spinning ring */}
+                                        <div className="absolute inset-0 border-4 border-indigo-200 rounded-full"></div>
+                                        <div className="absolute inset-0 border-4 border-transparent border-t-indigo-600 rounded-full animate-spin"></div>
+                                        {/* Inner pulsing circle */}
+                                        <div className="absolute inset-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full animate-pulse flex items-center justify-center">
+                                            <Wand2 className="w-6 h-6 text-white" />
+                                        </div>
+                                    </div>
+                                    {/* Animated text */}
+                                    <div className="space-y-1">
+                                        <p className="text-sm font-semibold text-indigo-600 animate-pulse">Generating your photo...</p>
+                                        <p className="text-xs text-gray-500">This may take a few moments</p>
+                                    </div>
+                                    {/* Animated dots */}
+                                    <div className="flex justify-center gap-1">
+                                        <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
+                                        <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
+                                        <div className="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
+                                    </div>
+                                </div>
+                            ) : result ? (
                                 result.startsWith("http") || result.startsWith("data:") ? (
-                                    <img src={result} alt="Generated AI" className="max-w-full max-h-full object-contain shadow-lg" />
+                                    <div className="relative w-full h-full flex items-center justify-center">
+                                        <img src={result} alt="Generated AI" className="max-w-full max-h-full object-contain shadow-lg" />
+                                        {/* Download Button */}
+                                        <button
+                                            onClick={() => {
+                                                const link = document.createElement("a");
+                                                link.href = result;
+                                                link.download = `ai-photo-${Date.now()}.png`;
+                                                document.body.appendChild(link);
+                                                link.click();
+                                                document.body.removeChild(link);
+                                            }}
+                                            className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-lg transition-all hover:scale-105"
+                                        >
+                                            <Download className="w-4 h-4" />
+                                            Download
+                                        </button>
+                                    </div>
                                 ) : (
                                     <div className="text-center p-4 bg-white rounded-lg shadow-sm border max-w-full overflow-auto">
                                         <p className="text-sm font-semibold text-indigo-600 mb-2">AI Response:</p>
