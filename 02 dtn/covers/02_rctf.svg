@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1565C0"/>
+      <stop offset="100%" stop-color="#1A237E"/>
+    </linearGradient>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.05)"/>
+    </linearGradient>
+    <filter id="shadow2">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(0,0,0,0.25)"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="640" height="640" fill="url(#bg2)" rx="0"/>
+
+  <!-- Decorative circles -->
+  <circle cx="520" cy="100" r="180" fill="rgba(255,255,255,0.04)"/>
+  <circle cx="560" cy="60" r="120" fill="rgba(255,255,255,0.04)"/>
+  <circle cx="80" cy="560" r="140" fill="rgba(255,255,255,0.03)"/>
+
+  <!-- Large icon background -->
+  <g transform="translate(460,185) scale(1)" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.15">
+      <rect x="0" y="0" width="90" height="90" rx="12"/>
+      <text x="45" y="35" text-anchor="middle" font-size="24" font-weight="bold" fill="#FFFFFF" stroke="none">R C</text>
+      <text x="45" y="70" text-anchor="middle" font-size="24" font-weight="bold" fill="#FFFFFF" stroke="none">T F</text>
+      <line x1="45" y1="5" x2="45" y2="85" stroke-dasharray="4,4"/>
+      <line x1="5" y1="45" x2="85" y2="45" stroke-dasharray="4,4"/>
+    </g>
+
+  <!-- Top bar: Section label -->
+  <rect x="30" y="24" width="244" height="30" rx="15" fill="rgba(255,255,255,0.2)"/>
+  <text x="42" y="44" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#FFFFFF" font-weight="bold">ส่วนที่ 1: ปูพื้นฐาน</text>
+
+  <!-- Number badge -->
+  <circle cx="80" cy="150" r="50" fill="rgba(255,255,255,0.15)" filter="url(#shadow2)"/>
+  <circle cx="80" cy="150" r="42" fill="rgba(255,255,255,0.2)"/>
+  <text x="80" y="162" font-family="Arial, Helvetica, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle" font-weight="bold">2</text>
+
+  <!-- Title Thai -->
+  <text x="145" y="140" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#FFFFFF" font-weight="bold">RCTF Prompting</text>
+  <!-- Subtitle Thai -->
+  <text x="145" y="172" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="rgba(255,255,255,0.85)">สูตรลับการเขียนคำสั่ง</text>
+
+  <!-- Divider -->
+  <line x1="40" y1="210" x2="600" y2="210" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+  <!-- English subtitle -->
+  <text x="40" y="245" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="rgba(255,255,255,0.7)" font-style="italic">Role · Context · Task · Format</text>
+
+  <!-- Content card: เทคนิค -->
+  <rect x="30" y="270" width="580" height="110" rx="16" fill="url(#cardGrad2)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="50" y="298" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#FFA000" font-weight="bold">เทคนิค | TECHNIQUE</text>
+  <text x="50" y="322" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#FFFFFF" text-anchor="start">กรอบ 4 ส่วนสำหรับเขียน Prompt</text>
+<text x="50" y="346" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#FFFFFF" text-anchor="start">ที่ได้ผลลัพธ์แม่นยำทุกครั้ง</text>
+
+
+  <!-- Content card: ตัวอย่าง DTN -->
+  <rect x="30" y="400" width="580" height="130" rx="16" fill="rgba(0,0,0,0.15)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="50" y="428" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#FFA000" font-weight="bold">ตัวอย่าง DTN | EXAMPLE</text>
+  <text x="50" y="452" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="rgba(255,255,255,0.9)" text-anchor="start">R: ที่ปรึกษาการค้า</text>
+<text x="50" y="474" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="rgba(255,255,255,0.9)" text-anchor="start">C: ยุโรปใช้มาตรการ CBAM</text>
+<text x="50" y="496" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="rgba(255,255,255,0.9)" text-anchor="start">T: สรุปผลกระทบต่อไทย</text>
+<text x="50" y="518" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="rgba(255,255,255,0.9)" text-anchor="start">F: ตารางเปรียบเทียบ</text>
+
+
+  <!-- Bottom bar -->
+  <rect x="0" y="560" width="640" height="80" fill="rgba(0,0,0,0.2)"/>
+
+  <!-- Difficulty -->
+  <text x="40" y="590" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="rgba(255,255,255,0.7)">ระดับความยาก:</text>
+  <text x="40" y="612" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#FFA000" font-weight="bold">พื้นฐาน</text>
+  <circle cx="415" cy="530" r="8" fill="#FFA000"/><circle cx="443" cy="530" r="8" fill="#FFA000"/><circle cx="471" cy="530" r="8" fill="rgba(255,255,255,0.25)"/><circle cx="499" cy="530" r="8" fill="rgba(255,255,255,0.25)"/><circle cx="527" cy="530" r="8" fill="rgba(255,255,255,0.25)"/>
+
+  <!-- Branding -->
+  <text x="610" y="590" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="rgba(255,255,255,0.5)" text-anchor="end">Mastering Google AI Ecosystem</text>
+  <text x="610" y="608" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="end">กรมเจรจาการค้าระหว่างประเทศ</text>
+</svg>
